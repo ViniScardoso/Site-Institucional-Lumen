@@ -1,0 +1,234 @@
+@font-face {
+    font-family: 'George Cafe' ;
+    src: url('fonts/Louis\ George\ Cafe.ttf')
+    format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    margin: 0;
+    background-color: rgb(25,25,25);
+    font-family: 'George Cafe';
+}
+
+.sol{
+
+    background-color:rgb(236,169,0) ;
+    height: 55%;
+    width: 40%;
+    border-bottom-left-radius: 100%;
+    float: right;
+}
+
+.header {
+    /* border-bottom: 3px solid rgb(233, 248, 24); */
+    display: flex;
+}
+
+.header .navBar .destaque {
+    font-weight: bolder ;
+}
+
+.container{
+    width: 80%;
+    margin: auto;
+    display: flex;
+}
+
+.header .container {
+    justify-content: space-between;
+}
+
+.icone {
+    padding-top: 9px;
+    width: 50px;
+    height: 50px;
+    margin-left: 30px;
+}
+
+.titulo {
+    color: rgb(236,169,0);
+    width: fit-content;
+    font-weight: 600;
+}
+
+.navBar {
+    color: white;
+    list-style: none;
+    display: flex;
+    justify-content:space-evenly;
+    width: 300px;
+    padding: 0;
+    align-items: center;
+    font-size: 16px;
+}
+
+/* fim do cabeçalho */
+
+/* começo do banner */
+
+.banner{
+    height: 400px;
+    color: #ffffff;
+    display: flex ;
+}
+
+.banner .container p span{
+    font-weight: bold;
+}
+
+.banner .container{
+    display: flex;
+    flex-direction: column;
+}
+
+.banner .container p{
+    font-size: 40px;
+    width: 50%;
+    margin-left: 50px;
+    font-weight: 100;
+}
+
+.banner .container h4 {
+    margin-left: 50px;
+    width: 50%;
+    font-weight: lighter;
+}
+
+.botoes {
+    margin-left: 50px;
+}
+
+.btn_amarelo{
+    background-color: rgb(236,169,0);
+    height: 33px;
+    width: 200px;
+    margin-top: 25px;
+    font: 700 15px 'George Cafe';
+    color: white;
+    border: 0;
+    border-radius: 20px;   
+    cursor: pointer;
+}
+
+.btn_cinza{
+    background-color: rgb(25,25,25);
+    height: 33px;
+    width: 150px;
+    margin-top: 25px;
+    font: 700 15px 'George Cafe';
+    color: white;
+    border: 0;
+    border-radius: 20px;   
+    cursor: pointer;
+    border: solid 2px white;
+}
+/* fim do banner */
+
+/* Começo do social */
+
+.social {
+    background-color: rgb(25,25,25);
+    display: flex;
+} 
+
+.social .container .boxes .box img{
+    width: 135px;
+}
+
+.social .container .boxes {
+    display: flex;
+}
+
+.box {
+    display: flex;
+    flex-direction: column;             
+    align-items: center;
+    margin: 50px;
+}
+
+/* fim do social */
+
+/* começo do footer */
+
+.footer {
+    background-color: rgb(96,96,84);
+    height: 100px;
+    color: #ffffff;
+    display: flex;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer .container {
+    justify-content: center;
+}
+
+.footerLogin {                    
+    background-color: rgb(96,96,84);
+    height: 100px;
+    color: #ffffff;
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.footerLogin .container {
+    justify-content: center;
+}
+
+/* A classe footerLogin foi desenvolvida para que os dois footers ficassem no fim pois quando o da home dava certo o do login dava errado e vice versa */
+
+
+/* LOGIN */
+
+a{
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.banner .containerLogin .card {
+    background-color: beige;
+    height: 400px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    color: palevioletred;
+    align-items: center;
+    border-radius: 4px;
+}
+
+.containerLogin{
+    width: 80%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+}
+
+
+.card h1{
+    font-size: 30px;
+}
+
+.card h4{
+    font-size: 15px;
+}
+
+.card input {
+    border: palevioletred solid 1px;
+    padding: 10px;
+}
+
+.card button {
+    background-color: palevioletred;
+    height: 30px;
+    width: 100px;
+    margin-top: 25px;
+    font: 700 20px monospace;
+    color: white;
+    border: 0;
+    border-radius: 10px;   
+    cursor: pointer;
+}
