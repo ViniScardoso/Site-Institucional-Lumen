@@ -13,12 +13,12 @@ body {
 }
 
 .sol{
-
-    background-color:rgb(236,169,0) ;
-    height: 55%;
-    width: 40%;
+    position:  absolute;
+    background-color:#eca900 ;
+    height: 70%;
+    width: 35%;
     border-bottom-left-radius: 100%;
-    float: right;
+    margin-left: 65%;
 }
 
 .header {
@@ -41,16 +41,18 @@ body {
 }
 
 .icone {
+    position: absolute;
     padding-top: 9px;
     width: 50px;
     height: 50px;
-    margin-left: 30px;
+    margin-left: 12%;
 }
 
 .titulo {
     color: rgb(236,169,0);
     width: fit-content;
     font-weight: 600;
+    margin-left: 7%;
 }
 
 .navBar {
@@ -69,7 +71,7 @@ body {
 /* começo do banner */
 
 .banner{
-    height: 400px;
+    height: 530px;
     color: #ffffff;
     display: flex ;
 }
@@ -84,25 +86,38 @@ body {
 }
 
 .banner .container p{
-    font-size: 40px;
-    width: 50%;
+    font-size: 50px;
+    width: 55%;
     margin-left: 50px;
     font-weight: 100;
+    margin-bottom: 15px;
 }
 
 .banner .container h4 {
     margin-left: 50px;
     width: 50%;
     font-weight: lighter;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.bannerCadastro{
+    height: fit-content;
+    color: #ffffff;
+    display: flex ;
+    padding-bottom: 100px;
 }
 
 .botoes {
     margin-left: 50px;
+    display: flex;
+    justify-content: space-between;
+    width: 370px;
 }
 
 .btn_amarelo{
     background-color: rgb(236,169,0);
-    height: 33px;
+    height: 38px;
     width: 200px;
     margin-top: 25px;
     font: 700 15px 'George Cafe';
@@ -114,7 +129,7 @@ body {
 
 .btn_cinza{
     background-color: rgb(25,25,25);
-    height: 33px;
+    height: 38px;
     width: 150px;
     margin-top: 25px;
     font: 700 15px 'George Cafe';
@@ -129,24 +144,69 @@ body {
 /* Começo do social */
 
 .social {
-    background-color: rgb(25,25,25);
     display: flex;
+    color: white;
 } 
 
 .social .container .boxes .box img{
-    width: 135px;
+    width: 25%;
+}
+
+.social .container .boxes .box2 img{
+    width: 25%;
+    margin-right: 100px;
 }
 
 .social .container .boxes {
     display: flex;
+    flex-direction: column;
 }
 
 .box {
     display: flex;
-    flex-direction: column;             
-    align-items: center;
     margin: 50px;
+    width: 100%;
 }
+
+.box h4{
+    font-size: 25px;
+    margin-bottom: 2%;
+}
+
+.box p {
+    width: 40%;
+}
+
+.box .texto{
+    margin-left: 50px;
+    display: flex;
+    flex-direction: column ;
+    justify-content: center;
+}
+
+.box2 {
+    display: flex;
+    margin: 50px;
+    width: 100%;
+    flex-direction: row-reverse;
+}
+
+.box2 h4{
+    font-size: 25px;
+}
+
+.box2 p {
+    margin-top: 0;
+    width: 38%;
+}
+
+.box2 .texto{
+    display: flex;
+    flex-direction: column ;
+    justify-content: center;
+    width: fit-content;
+}
+
 
 /* fim do social */
 
@@ -165,7 +225,7 @@ body {
     justify-content: center;
 }
 
-.footerLogin {                    
+.footerFixo {                    
     background-color: rgb(96,96,84);
     height: 100px;
     color: #ffffff;
@@ -175,11 +235,12 @@ body {
     width: 100%;
 }
 
-.footerLogin .container {
+.footerFixo .container {
     justify-content: center;
 }
 
-/* A classe footerLogin foi desenvolvida para que os dois footers ficassem no fim pois quando o da home dava certo o do login dava errado e vice versa */
+
+/* A classe footerfixo foi desenvolvida para que os dois footers ficassem no fim pois quando o da home dava certo o do login dava errado e vice versa */
 
 
 /* LOGIN */
@@ -189,15 +250,21 @@ a{
     text-decoration: none;
 }
 
-.banner .containerLogin .card {
-    background-color: beige;
-    height: 400px;
+.card {
+    background-color: rgb(96,96,84);
+    display: flex;
+    color: rgb(236,169,0);
+    align-items: center;
+    height: fit-content;
     width: 400px;
     display: flex;
     flex-direction: column;
-    color: palevioletred;
-    align-items: center;
     border-radius: 4px;
+    padding-bottom: 50px;
+}
+
+.banner .containerLogin .card {
+    margin-top: 4%;
 }
 
 .containerLogin{
@@ -207,25 +274,36 @@ a{
     justify-content: center;
 }
 
+.bannerCadastro .containerLogin .card {
+    margin-top: 4%;
+}
 
 .card h1{
     font-size: 30px;
+    margin-bottom: 0;
 }
 
 .card h4{
     font-size: 15px;
 }
 
+.card h3{
+    margin-top: 15%;
+    font-size: 20px;
+    margin-bottom: 0;
+}
+
 .card input {
-    border: palevioletred solid 1px;
+    border: rgb(236,169,0) solid 1px;
     padding: 10px;
+    border-radius: 15px;
 }
 
 .card button {
-    background-color: palevioletred;
+    background-color: rgb(236,169,0);
     height: 30px;
-    width: 100px;
-    margin-top: 25px;
+    width: 150px;
+    margin-top: 40px;
     font: 700 20px monospace;
     color: white;
     border: 0;
