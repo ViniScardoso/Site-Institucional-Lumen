@@ -8,13 +8,13 @@
 
 body {
     margin: 0;
-    background-color: rgb(25,25,25);
+    background-color: #110037;
     font-family: 'George Cafe';
 }
 
 .sol{
     position:  absolute;
-    background-color:#eca900 ;
+    background-color: #ffff00 ;
     height: 70%;
     width: 35%;
     border-bottom-left-radius: 100%;
@@ -22,7 +22,7 @@ body {
 }
 
 .header {
-    /* border-bottom: 3px solid rgb(233, 248, 24); */
+    /* border-bottom: 3px solid #ffff00; */
     display: flex;
 }
 
@@ -49,7 +49,7 @@ body {
 }
 
 .titulo {
-    color: rgb(236,169,0);
+    color: #ffff00;
     width: fit-content;
     font-weight: 600;
     margin-left: 7%;
@@ -116,19 +116,20 @@ body {
 }
 
 .btn_amarelo{
-    background-color: rgb(236,169,0);
+    background-color: #ffff00;
     height: 38px;
     width: 200px;
     margin-top: 25px;
     font: 700 15px 'George Cafe';
-    color: white;
+    color: black;
+    font-weight: 800;
     border: 0;
     border-radius: 20px;   
     cursor: pointer;
 }
 
-.btn_cinza{
-    background-color: rgb(25,25,25);
+.btn_roxo{
+    background-color: #110037;
     height: 38px;
     width: 150px;
     margin-top: 25px;
@@ -189,6 +190,7 @@ body {
     margin: 50px;
     width: 100%;
     flex-direction: row-reverse;
+ 
 }
 
 .box2 h4{
@@ -197,14 +199,16 @@ body {
 
 .box2 p {
     margin-top: 0;
-    width: 38%;
+    width: 42%;
 }
 
 .box2 .texto{
     display: flex;
     flex-direction: column ;
-    justify-content: center;
     width: fit-content;
+    flex-wrap: wrap;
+    align-content: flex-end;
+    justify-content: center;
 }
 
 
@@ -213,7 +217,7 @@ body {
 /* começo do footer */
 
 .footer {
-    background-color: rgb(96,96,84);
+    background-color: #39253c;
     height: 100px;
     color: #ffffff;
     display: flex;
@@ -226,7 +230,7 @@ body {
 }
 
 .footerFixo {                    
-    background-color: rgb(96,96,84);
+    background-color: #39253c;
     height: 100px;
     color: #ffffff;
     display: flex;
@@ -251,9 +255,9 @@ a{
 }
 
 .card {
-    background-color: rgb(96,96,84);
+    background-color: #39253c;
     display: flex;
-    color: rgb(236,169,0);
+    color: #ffff00;
     align-items: center;
     height: fit-content;
     width: 400px;
@@ -294,18 +298,18 @@ a{
 }
 
 .card input {
-    border: rgb(236,169,0) solid 1px;
+    border: #ffff00 solid 1px;
     padding: 10px;
     border-radius: 15px;
 }
 
 .card button {
-    background-color: rgb(236,169,0);
+    background-color: #ffff00;
     height: 30px;
     width: 150px;
     margin-top: 40px;
-    font: 700 20px monospace;
-    color: white;
+    font: 700 20px 'George Cafe';
+    color: black;
     border: 0;
     border-radius: 10px;   
     cursor: pointer;
