@@ -7,24 +7,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="stylesheet" href="estilo.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
     <!-- inicio menu lateral  -->
 
-    <div class="menuLateral">   
+    <div class="menuLateral">
         <h1 class="tituloDash">Dashboard</h1>
     </div>
 
     <!-- fim menu lateral -->
 
     <!-- inicio cabeçalho -->
-    <div class="headerDashboard"> 
+    <div class="headerDashboard">
         <ul class="navbarDash">
             <h1 class="userNome">Olá, usuário!</h1>
-            <img class="userImg" src="imgs/user.png" >
+            <img class="userImg" src="imgs/user.png">
             <li><a href="cadastro.html">Sair</a></li>
-        </ul>    
+        </ul>
     </div>
 
     <!-- Fim do cabeçalho -->
@@ -32,8 +33,109 @@
     <!-- começo do conteúdo -->
 
     <div class="conteudo">
-        <div class="graficos"></div>
+        <div class="graficos">
+            <div>
+                <canvas id="myChart" style="position: relative; height:40vh; width:40vw"></canvas>
+            </div>
+        </div>
         <div class="graficos"></div>
         <div class="graficos"></div>
         <div class="graficos"></div>
     </div>
+
+</body>
+
+</html>
+<script>
+    // grafico 1, temp e umidade line
+
+    const labels = [
+        '12:00',
+        '13:00',
+        '14:00',
+        '15:00',
+        '16:00',
+        '17:00',
+    ];
+
+// grafico 2, temp e umidade bar
+    const meses = [
+        'Janeiro',
+        'Fevereiro',
+        'Março',
+        'Abril',
+        'Maio',
+        'Junho',
+    ];
+
+// grafico 1, temp e umidade
+    const data = {
+        labels: labels,
+        datasets: [{
+            //linha 1 temperatura 
+            label: 'Temperatura',
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: [30, 29, 28, 25, 22, 23],
+        },
+
+            //linha 2 umidade 
+        {
+            label: 'umidade',
+            backgroundColor: 'rgb(0, 0, 255)',
+            borderColor: 'rgb(0, 0, 255)',
+            data: [80, 82, 80, 85, 80, 83],
+        }
+    ]
+    };
+
+// grafico 2 barras umidade e temp
+
+    const data2 = {
+        labels: meses,
+        datasets: [{
+            //linha 1 temperatura 
+            label: 'Temperatura media',
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: [22, 24, 27, 23, 20, 18],
+        },
+
+            //linha 2 umidade 
+        {
+            label: 'umidade media',
+            backgroundColor: 'rgb(0, 0, 255)',
+            borderColor: 'rgb(0, 0, 255)',
+            data: [90, 89, 93, 87, 88, 82],
+        }
+    ]
+    };
+
+
+// config grafico 1
+    const config = {
+        type: 'line',
+        data: data,
+        options: {}
+    };
+
+// config grafico 2
+    const config2 = {
+        type: 'bar',
+        data: data2,
+        options: {}
+    };
+</script>
+
+<script>
+    const myChart = new Chart(
+        document.getElementById('myChart'),
+        config
+    );
+
+    const myChart2 = new Chart(
+        document.getElementById('myChart2'),
+        config2
+    );
+</script>
+
