@@ -332,7 +332,7 @@ a{
     color: white;
     font-weight: 600;
     height: 57px;
-    border-bottom: solid 1px white;
+    /* border-bottom: solid 1px white; */
 }
 
 .navbarDash{
@@ -368,6 +368,24 @@ a{
     position: absolute;
     width: 15%;
     height: 100%;
-    border-right: 1px gray double;
+    border-right: 1px gray solid;
 }
 
+.conteudo{
+    width: 84.8%;
+    height: 87%;
+    margin-left: 15%;
+    margin-top: 6%;
+    position: absolute;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+}
+
+.graficos{
+    border: solid 1px black;
+    width: 45%;
+    height: 45%;
+}
