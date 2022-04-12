@@ -29,7 +29,7 @@ body {
     background-color: #311C5E
 }
 
-.header .navBar .destaque {
+.destaque {
     font-weight: bolder ;
 }
 
@@ -387,11 +387,13 @@ a{
 }
 
 .graficos{
+    display: flex;
     border: solid 1px black;
     width: 45%;
     height: 45%;
     background-color: #311C5E;
     color: white;
+    justify-content: center;
 }
 
 .opcoes{

@@ -17,7 +17,7 @@
         <h1 class="tituloDash">Dashboard</h1>
         <div class="opcoes">
             <p>Geral</p>
-            <p>Setor 1</p>
+            <p class="destaque">Setor 1</p>
             <p>Setor 2</p>
             <p>Setor 3</p>
             <p>Setor 4</p>
@@ -42,12 +42,12 @@
     <div class="conteudo">
         <div class="graficos">
             <div>
-                <canvas id="myChart" style="position: relative; height:40vh; width:40vw"></canvas>
+                <canvas id="myChart" style="position: relative; height:38vh; width:35vw"></canvas>
             </div>
         </div>
         <div class="graficos">
             <div>
-                <canvas id="myChart2" style="position: relative; height:40vh; width:40vw"></canvas>
+                <canvas id="myChart2" style="position: relative; height:38vh; width:35vw"></canvas>
             </div>
         </div>
         <div class="graficos"></div>
@@ -58,18 +58,24 @@
 
 </html>
 <script>
-// grafico 1, sensores do setor
+// grafico 1, meidição da luminosidade nas horas em que o shopping fica aberto
 
     const labels = [
+        '10:00',
+        '11:00',
         '12:00',
         '13:00',
         '14:00',
         '15:00',
         '16:00',
-        '17:00',
+        '18:00',
+        '19:00',
+        '20:00',
+        '21:00',
+        '22:00',
     ];
 
-// grafico 2, temp e umidade bar
+// grafico 2, Media semestral do setor
     const meses = [
         'Janeiro',
         'Fevereiro',
@@ -79,7 +85,16 @@
         'Junho',
     ];
 
-// grafico 1, temp e umidade
+//grafico 3, media mensal do setor
+
+    const semanas = [
+        'semana 1',
+        'semana 2',
+        'semana 3',
+        'semana 4',
+    ]
+
+// grafico 1, meidição da luminosidade nas horas em que o shopping fica aberto
     const data = {
         labels: labels,
         datasets: [{
@@ -87,29 +102,29 @@
             label: 'Sensor 1',
             backgroundColor: 'rgb(255, 99, 132)',
             borderColor: 'rgb(255, 99, 132)',
-            data: [30, 29, 28, 25, 22, 23],
-            tension: 0.3
+            data: [755, 833, 921, 678, 464, 834, 756, 653, 816, 532, 728, 687],
         },
 
-            //linha 2 sensor 2 
+           
         {
+            //linha 2 sensor 2 
             label: 'Sensor 2',
             backgroundColor: 'rgb(0, 0, 255)',
             borderColor: 'rgb(0, 0, 255)',
-            data: [80, 82, 80, 85, 80, 83],
+            data: [835, 724, 645, 933, 567, 837, 543, 678, 981, 684, 981, 724],
         }
     ]
     };
 
-// grafico 2 barras umidade e temp
+// grafico 2, Media semestral do setor
 
     const data2 = {
         labels: meses,
         datasets: [{
             //linha 2 media semestral setor 2 
             label: 'Setor 1',
-            backgroundColor: 'rgb(0, 0, 255)',
-            borderColor: 'rgb(0, 0, 255)',
+            backgroundColor: '#33ff33',
+            borderColor: '#33ff33',
             data: [90, 89, 93, 87, 88, 82],
         }
     ]
@@ -122,7 +137,6 @@
         data: data,
         options: {
             plugins: {
-
                 title: {
                     display: true,
                     text: 'Monitoramento diário dos sensores',
