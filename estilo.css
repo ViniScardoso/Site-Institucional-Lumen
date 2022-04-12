@@ -370,6 +370,7 @@ a{
     width: 15%;
     height: 100%;
     border-right: 1px gray solid;
+    color: white;
 }
 
 .conteudo{
@@ -391,4 +392,13 @@ a{
     height: 45%;
     background-color: #311C5E;
     color: white;
+}
+
+.opcoes{
+    display: flex;
+    flex-direction: column;
+}
+
+.opcoes img{
+    height: 15px;
 }

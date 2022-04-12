@@ -15,6 +15,13 @@
 
     <div class="menuLateral">
         <h1 class="tituloDash">Dashboard</h1>
+        <div class="opcoes">
+            <p>Geral</p>
+            <p>Setor 1</p>
+            <p>Setor 2</p>
+            <p>Setor 3</p>
+            <p>Setor 4</p>
+        </div>
     </div>
 
     <!-- fim menu lateral -->
@@ -38,7 +45,11 @@
                 <canvas id="myChart" style="position: relative; height:40vh; width:40vw"></canvas>
             </div>
         </div>
-        <div class="graficos"></div>
+        <div class="graficos">
+            <div>
+                <canvas id="myChart2" style="position: relative; height:40vh; width:40vw"></canvas>
+            </div>
+        </div>
         <div class="graficos"></div>
         <div class="graficos"></div>
     </div>
@@ -47,7 +58,7 @@
 
 </html>
 <script>
-    // grafico 1, temp e umidade line
+// grafico 1, sensores do setor
 
     const labels = [
         '12:00',
@@ -72,16 +83,17 @@
     const data = {
         labels: labels,
         datasets: [{
-            //linha 1 temperatura 
-            label: 'Temperatura',
+            //linha 1 sensor 1
+            label: 'Sensor 1',
             backgroundColor: 'rgb(255, 99, 132)',
             borderColor: 'rgb(255, 99, 132)',
             data: [30, 29, 28, 25, 22, 23],
+            tension: 0.3
         },
 
-            //linha 2 umidade 
+            //linha 2 sensor 2 
         {
-            label: 'umidade',
+            label: 'Sensor 2',
             backgroundColor: 'rgb(0, 0, 255)',
             borderColor: 'rgb(0, 0, 255)',
             data: [80, 82, 80, 85, 80, 83],
@@ -94,16 +106,8 @@
     const data2 = {
         labels: meses,
         datasets: [{
-            //linha 1 temperatura 
-            label: 'Temperatura media',
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: 'rgb(255, 99, 132)',
-            data: [22, 24, 27, 23, 20, 18],
-        },
-
-            //linha 2 umidade 
-        {
-            label: 'umidade media',
+            //linha 2 media semestral setor 2 
+            label: 'Setor 1',
             backgroundColor: 'rgb(0, 0, 255)',
             borderColor: 'rgb(0, 0, 255)',
             data: [90, 89, 93, 87, 88, 82],
@@ -116,14 +120,77 @@
     const config = {
         type: 'line',
         data: data,
-        options: {}
+        options: {
+            plugins: {
+
+                title: {
+                    display: true,
+                    text: 'Monitoramento diário dos sensores',
+                    color: 'white'
+                },
+                legend: {
+                    labels: {
+                      color: 'white'
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    grid: {
+                        color: 'white'
+                    },
+                    ticks: {
+                        color: 'white'
+                    }
+                },
+                y: {
+                    grid: {
+                        color: 'white'
+                    },
+                    ticks: {
+                        color: 'white'
+                    }
+                }
+            }
+        }
     };
 
 // config grafico 2
     const config2 = {
         type: 'bar',
         data: data2,
-        options: {}
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Média semestral do Setor',
+                    color: 'white'
+                },
+                legend: {
+                    labels: {
+                      color: 'white'
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    grid: {
+                        color: 'white'
+                    },
+                    ticks: {
+                        color: 'white'
+                    }
+                },
+                y: {
+                    grid: {
+                        color: 'white'
+                    },
+                    ticks: {
+                        color: 'white'
+                    }
+                }
+            }
+        }
     };
 </script>
 
