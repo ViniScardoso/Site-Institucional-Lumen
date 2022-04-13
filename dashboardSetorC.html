@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Setor A</title>
+    <title>Setor C</title>
     <link rel="stylesheet" href="estilo.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -17,9 +17,9 @@
         <h1 class="tituloDash">Dashboard</h1>
         <div class="opcoes">
             <p><a href="dashboardGeral.html">Geral</a></p>
-            <p class="destaque"><a href="dashboardSetorA.html">Setor A</a></p>
+            <p><a href="dashboardSetorA.html">Setor A</a></p>
             <p><a href="dashboardSetorB.html">Setor B</a></p>
-            <p><a href="dashboardSetorC.html">Setor C</a></p>
+            <p class="destaque"><a href="dashboardSetorC.html">Setor C</a></p>
             <p><a href="dashboardSetorD.html">Setor D</a></p>
         </div>
     </div>
@@ -125,8 +125,8 @@
     const data2 = {
         labels: meses,
         datasets: [{
-            // barras media semestral setor 1
-            label: 'Setor A',
+            // barras media semestral setor B
+            label: 'Setor C',
             backgroundColor: '#4200D1',
             borderColor: '#4200D1',
             data: [90, 89, 93, 87, 88, 82],
@@ -140,7 +140,7 @@
         labels: semanas,
         datasets: [{
             //barras media semanal
-            label: 'Setor A',
+            label: 'Setor C',
             backgroundColor: '#3C0345',
             borderColor: '#3C0345',
             data: [854, 763, 812, 697],
@@ -279,5 +279,6 @@
         config3
     );
 </script>
+
 
 
