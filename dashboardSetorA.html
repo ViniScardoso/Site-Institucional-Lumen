@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Setor A</title>
     <link rel="stylesheet" href="estilo.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -16,11 +16,11 @@
     <div class="menuLateral">
         <h1 class="tituloDash">Dashboard</h1>
         <div class="opcoes">
-            <p>Geral</p>
-            <p class="destaque">Setor 1</p>
-            <p>Setor 2</p>
-            <p>Setor 3</p>
-            <p>Setor 4</p>
+            <p><a href="dashboardGeral.html">Geral</a></p>
+            <p class="destaque"><a href="dashboardSetorA.html">Setor A</a></p>
+            <p>Setor B</p>
+            <p>Setor C</p>
+            <p>Setor D</p>
         </div>
     </div>
 
@@ -50,7 +50,11 @@
                 <canvas id="myChart2" style="position: relative; height:38vh; width:35vw"></canvas>
             </div>
         </div>
-        <div class="graficos"></div>
+        <div class="graficos">
+            <div>
+                <canvas id="myChart3" style="position: relative; height:38vh; width:35vw"></canvas>
+            </div>
+        </div>
         <div class="graficos"></div>
     </div>
 
@@ -88,10 +92,10 @@
 //grafico 3, media mensal do setor
 
     const semanas = [
-        'semana 1',
-        'semana 2',
-        'semana 3',
-        'semana 4',
+        'Semana 1',
+        'Semana 2',
+        'Semana 3',
+        'Semana 4',
     ]
 
 // grafico 1, meidição da luminosidade nas horas em que o shopping fica aberto
@@ -121,15 +125,28 @@
     const data2 = {
         labels: meses,
         datasets: [{
-            //linha 2 media semestral setor 2 
-            label: 'Setor 1',
-            backgroundColor: '#33ff33',
-            borderColor: '#33ff33',
+            // barras media semestral setor 1
+            label: 'Setor A',
+            backgroundColor: '#4200D1',
+            borderColor: '#4200D1',
             data: [90, 89, 93, 87, 88, 82],
         }
     ]
     };
 
+// grafico 3 media mensal do setor
+
+    const data3 = {
+        labels: semanas,
+        datasets: [{
+            //barras media semanal
+            label: 'Setor A',
+            backgroundColor: '#3C0345',
+            borderColor: '#3C0345',
+            data: [854, 763, 812, 697],
+        }
+    ]
+    }
 
 // config grafico 1
     const config = {
@@ -206,6 +223,44 @@
             }
         }
     };
+
+    // config grafico 3
+    const config3 = {
+        type: 'bar',
+        data: data3,
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: `Média Mensal do Setor`,
+                    color: 'white'
+                },
+                legend: {
+                    labels: {
+                      color: 'white'
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    grid: {
+                        color: 'white'
+                    },
+                    ticks: {
+                        color: 'white'
+                    }
+                },
+                y: {
+                    grid: {
+                        color: 'white'
+                    },
+                    ticks: {
+                        color: 'white'
+                    }
+                }
+            }
+        }
+    };
 </script>
 
 <script>
@@ -218,5 +273,11 @@
         document.getElementById('myChart2'),
         config2
     );
+
+    const myChart3 = new Chart(
+        document.getElementById('myChart3'),
+        config3
+    );
 </script>
+
 
