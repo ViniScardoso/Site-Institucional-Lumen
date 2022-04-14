@@ -74,7 +74,7 @@ body {
 /* começo do banner */
 
 .banner{
-    height: 530px;
+    height: 400px;
     color: #ffffff;
     display: flex ;
 }
@@ -85,7 +85,15 @@ body {
 
 .banner .container{
     display: flex;
+}
+
+.textos{
+    display: flex;
     flex-direction: column;
+}
+
+.banner .container img{
+    height: 300px
 }
 
 .banner .container p{
@@ -272,7 +280,6 @@ a{
 
 .banner .containerLogin .card {
     margin-top: 4%;
-    margin-bottom: 16%;
 }
 
 .containerLogin{
@@ -407,20 +414,23 @@ a{
     height: 15px;
 }
 
-/* .kpis{
-    display: flex;
-    border: solid 1px black;
-    width: 45%;
-    height: 45%;
-    background-color: #311C5E;
-    color: white;
-    justify-content: center;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-} */
 
 .graficos .infos {
+    display: flex;
+    flex-direction: column;
     width: 49.6%;
     height: 49.6%;
     border: solid 1px black;
+    justify-content: center;
+    align-items: center;
+}
+
+.infos h1{
+    margin: 1px;
+    height: fit-content;
+    width: fit-content; 
+}
+
+.infos h4{
+    align-self: center;
 }
