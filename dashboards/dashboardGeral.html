@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Setor B</title>
-    <link rel="stylesheet" href="estilo.css">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="../estilo.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
@@ -16,9 +16,9 @@
     <div class="menuLateral">
         <h1 class="tituloDash">Dashboard</h1>
         <div class="opcoes">
-            <p><a href="dashboardGeral.html">Geral</a></p>
+            <p class="destaque"><a href="dashboardGeral.html">Geral</a></p>
             <p><a href="dashboardSetorA.html">Setor A</a></p>
-            <p class="destaque"><a href="dashboardSetorB.html">Setor B</a></p>
+            <p><a href="dashboardSetorB.html">Setor B</a></p>
             <p><a href="dashboardSetorC.html">Setor C</a></p>
             <p><a href="dashboardSetorD.html">Setor D</a></p>
         </div>
@@ -30,7 +30,7 @@
     <div class="headerDashboard">
         <ul class="navbarDash">
             <h1 class="userNome">Olá, usuário!</h1>
-            <img class="userImg" src="imgs/user.png">
+            <img class="userImg" src="../imgs/user.png">
             <li><a href="cadastro.html">Sair</a></li>
         </ul>
     </div>
@@ -40,6 +40,9 @@
     <!-- começo do conteúdo -->
 
     <div class="conteudo">
+        <div class="graficos">
+           
+        </div>
         <div class="graficos">
             <div>
                 <canvas id="myChart" style="position: relative; height:38vh; width:35vw"></canvas>
@@ -55,14 +58,13 @@
                 <canvas id="myChart3" style="position: relative; height:38vh; width:35vw"></canvas>
             </div>
         </div>
-        <div class="graficos"></div>
     </div>
 
 </body>
 
 </html>
 <script>
-// grafico 1, meidição da luminosidade nas horas em que o shopping fica aberto
+// grafico 1, comparação da media da luminosidade medida pelos graficos
 
     const labels = [
         '10:00',
@@ -72,6 +74,7 @@
         '14:00',
         '15:00',
         '16:00',
+        '17:00',
         '18:00',
         '19:00',
         '20:00',
@@ -79,14 +82,15 @@
         '22:00',
     ];
 
-// grafico 2, Media semestral do setor
-    const meses = [
-        'Janeiro',
-        'Fevereiro',
-        'Março',
-        'Abril',
-        'Maio',
-        'Junho',
+// grafico 2, Media semestral dos setores
+    const dias = [
+        'Segunda',
+        'Terça',
+        'Quarta',
+        'Quinta',
+        'Sexta',
+        'Sábado',
+        'Domingo',
     ];
 
 //grafico 3, media mensal do setor
@@ -98,53 +102,118 @@
         'Semana 4',
     ]
 
-// grafico 1, meidição da luminosidade nas horas em que o shopping fica aberto
+// grafico 1, comparação da media da luminosidade medida pelos graficos
     const data = {
         labels: labels,
         datasets: [{
-            //linha 1 sensor 1
-            label: 'Sensor 1',
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: 'rgb(255, 99, 132)',
-            data: [755, 833, 921, 678, 464, 834, 756, 653, 816, 532, 728, 687],
+            //linha 1 setor a
+            label: 'Setor A',
+            backgroundColor: '#4200D1',
+            borderColor: '#4200D1',
+            data: [755, 833, 921, 878, 764, 834, 756, 653, 416, 532, 512, 452, 321],
         },
 
            
         {
-            //linha 2 sensor 2 
-            label: 'Sensor 2',
+            //linha 2 setor b 
+            label: 'Setor B',
             backgroundColor: 'rgb(0, 0, 255)',
             borderColor: 'rgb(0, 0, 255)',
-            data: [835, 724, 645, 933, 567, 837, 543, 678, 981, 684, 981, 724],
-        }
+            data: [835, 724, 645, 933, 567, 837, 543, 678, 981, 684, 981, 724, 432],
+        },
+
+        {
+            //linha 3 setor c 
+            label: 'Setor C',
+            backgroundColor: '#031245',
+            borderColor: '#031245',
+            data: [792, 864, 621, 762, 534, 885, 713, 898, 821, 932, 732, 543, 383],
+        },
+
+        {
+            //linha 4 setor d 
+            label: 'Setor D',
+            backgroundColor: '#3C0345',
+            borderColor: '#3C0345',
+            data: [741, 827, 921, 821, 889, 985, 725, 638, 521, 464, 521, 375, 453],
+        },
     ]
     };
 
 // grafico 2, Media semestral do setor
 
     const data2 = {
-        labels: meses,
+        labels: dias,
         datasets: [{
-            // barras media semestral setor B
-            label: 'Setor B',
+            // barras media semestral setor A
+            label: 'Setor A',
             backgroundColor: '#4200D1',
             borderColor: '#4200D1',
-            data: [90, 89, 93, 87, 88, 82],
-        }
+            data: [663, 732, 621, 743, 689, 672, 731],
+        },
+        
+        {
+            // barras media semestral setor B
+            label: 'Setor B',
+            backgroundColor: 'rgb(0, 0, 255)',
+            borderColor: 'rgb(0, 0, 255)',
+            data: [699, 631, 887, 711, 673, 717, 818],
+        },
+
+        {
+            // barras media semestral setor C
+            label: 'Setor C',
+            backgroundColor: '#031245',
+            borderColor: '#031245',
+            data: [790, 666, 732, 649, 737, 822, 792],
+        },
+
+        {
+            // barras media semestral setor D
+            label: 'Setor D',
+            backgroundColor: '#3C0345',
+            borderColor: '#3C0345',
+            data: [669, 633, 715, 873, 698, 862, 721],
+        },
     ]
     };
 
-// grafico 3 media mensal do setor
+// grafico 3 media mensal dos setores
 
     const data3 = {
         labels: semanas,
         datasets: [{
-            //barras media semanal
+            //barras media semanal setor a
+            label: 'Setor A',
+            backgroundColor: '#4200D1',
+            borderColor: '#4200D1',
+            data: [854, 763, 812, 697],
+        },
+
+        {
+            //barras media semanal setor b
             label: 'Setor B',
+            backgroundColor: 'rgb(0, 0, 255)',
+            borderColor: 'rgb(0, 0, 255)',
+            data: [776, 881, 616, 838],
+        },
+
+        {
+            //barras media semanal setor c
+            label: 'Setor C',
+            backgroundColor: '#031245',
+            borderColor: '#031245',
+            data: [605, 755, 825, 765],
+        },
+
+        {
+            //barras media semanal setor d
+            label: 'Setor D',
             backgroundColor: '#3C0345',
             borderColor: '#3C0345',
-            data: [854, 763, 812, 697],
-        }
+            data: [751, 858, 622, 639],
+        },
+        
     ]
     }
 
@@ -156,7 +225,7 @@
             plugins: {
                 title: {
                     display: true,
-                    text: 'Monitoramento diário dos sensores',
+                    text: 'Comparação da luminosidade dos setores no dia',
                     color: 'white'
                 },
                 legend: {
@@ -194,7 +263,7 @@
             plugins: {
                 title: {
                     display: true,
-                    text: 'Média semestral do Setor',
+                    text: 'Média semanal dos Setores',
                     color: 'white'
                 },
                 legend: {
@@ -232,7 +301,7 @@
             plugins: {
                 title: {
                     display: true,
-                    text: `Média Mensal do Setor`,
+                    text: `Média Mensal dos Setores`,
                     color: 'white'
                 },
                 legend: {
@@ -279,6 +348,5 @@
         config3
     );
 </script>
-
 
 

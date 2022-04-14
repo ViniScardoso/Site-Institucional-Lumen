@@ -387,6 +387,7 @@ a{
 }
 
 .graficos{
+    margin-top: 25px;
     display: flex;
     border: solid 1px black;
     width: 45%;
@@ -394,6 +395,7 @@ a{
     background-color: #311C5E;
     color: white;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
 .opcoes{
@@ -403,4 +405,22 @@ a{
 
 .opcoes img{
     height: 15px;
+}
+
+/* .kpis{
+    display: flex;
+    border: solid 1px black;
+    width: 45%;
+    height: 45%;
+    background-color: #311C5E;
+    color: white;
+    justify-content: center;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+} */
+
+.graficos .infos {
+    width: 49.6%;
+    height: 49.6%;
+    border: solid 1px black;
 }
