@@ -43,12 +43,12 @@
         <div class="graficos">
             <div class="infos">
                 <h1>Ganhos</h1>
-                <h4>Lorem ipsum dolor sit amet, consectetur </h4>
+                <h4>R$ 0.00</h4>
             </div>
             <div class="infos"></div>
             <div class="infos"></div>
             <div class="infos"></div>
-         </div>
+        </div>
         <div class="graficos">
             <div>
                 <canvas id="myChart" style="position: relative; height:38vh; width:35vw"></canvas>
@@ -114,8 +114,8 @@
         datasets: [{
             //linha 1 setor a
             label: 'Setor A',
-            backgroundColor: '#4200D1',
-            borderColor: '#4200D1',
+            backgroundColor: '#F2B1A2',
+            borderColor: '#F2B1A2',
             data: [755, 833, 921, 878, 764, 834, 756, 653, 416, 532, 512, 452, 321],
         },
 
@@ -131,8 +131,8 @@
         {
             //linha 3 setor c 
             label: 'Setor C',
-            backgroundColor: '#031245',
-            borderColor: '#031245',
+            backgroundColor: '#F2CD5E',
+            borderColor: '#F2CD5E',
             data: [792, 864, 621, 762, 534, 885, 713, 898, 821, 932, 732, 543, 383],
         },
 
@@ -153,8 +153,8 @@
         datasets: [{
             // barras media semestral setor A
             label: 'Setor A',
-            backgroundColor: '#4200D1',
-            borderColor: '#4200D1',
+            backgroundColor: '#F2B1A2',
+            borderColor: '#F2B1A2',
             data: [663, 732, 621, 743, 689, 672, 731],
         },
         
@@ -169,8 +169,8 @@
         {
             // barras media semestral setor C
             label: 'Setor C',
-            backgroundColor: '#031245',
-            borderColor: '#031245',
+            backgroundColor: '#F2CD5E',
+            borderColor: '#F2CD5E',
             data: [790, 666, 732, 649, 737, 822, 792],
         },
 
@@ -191,8 +191,8 @@
         datasets: [{
             //barras media semanal setor a
             label: 'Setor A',
-            backgroundColor: '#4200D1',
-            borderColor: '#4200D1',
+            backgroundColor: '#F2B1A2',
+            borderColor: '#F2B1A2',
             data: [854, 763, 812, 697],
         },
 
@@ -207,8 +207,8 @@
         {
             //barras media semanal setor c
             label: 'Setor C',
-            backgroundColor: '#031245',
-            borderColor: '#031245',
+            backgroundColor: '#F2CD5E',
+            borderColor: '#F2CD5E',
             data: [605, 755, 825, 765],
         },
 
@@ -262,6 +262,7 @@
     };
 
 // config grafico 2
+    let delayed;
     const config2 = {
         type: 'bar',
         data: data2,
