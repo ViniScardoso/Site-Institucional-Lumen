@@ -6,7 +6,7 @@
     font-style: normal;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@5px,100;5px,200;0,300;0,400;0,500;0,600;0,700;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 body {
     margin: 0;
@@ -431,7 +431,22 @@ a{
 }
 
 .infos h1{
-    margin: 1px;
+    display: flex;
+    flex-wrap: wrap;
     height: fit-content;
     width: fit-content; 
+    margin-bottom: 5px;
+    margin-top: 0;
+    font-size: 29px;
+}
+
+.infos h5{
+    margin: 5px;
+}
+
+.infos .kpis{
+    margin-top: 5px;
+    justify-content: space-evenly;
+    display: flex;
+    flex-wrap: wrap;
 }
