@@ -437,11 +437,12 @@ a{
     width: fit-content; 
     margin-bottom: 5px;
     margin-top: 0;
-    font-size: 29px;
+    font-size: 25px;
 }
 
 .infos h5{
     margin: 5px;
+    font-size: 12px;
 }
 
 .infos .kpis{
