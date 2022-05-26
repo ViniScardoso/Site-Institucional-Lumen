@@ -1,17 +1,9 @@
-@font-face {
-    font-family: 'George Cafe' ;
-    src: url('fonts/Louis\ George\ Cafe.ttf')
-    format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@5px,100;5px,200;0,300;0,400;0,500;0,600;0,700;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 body {
     margin: 0;
     background-color: #110037;
-    font-family: 'George Cafe';
+    font-family: 'Times New Roman';
 }
 
 .sol{
@@ -345,7 +337,6 @@ a{
     color: white;
     font-weight: 600;
     height: 57px;
-    /* border-bottom: solid 1px white; */
 }
 
 .navbarDash{
@@ -407,7 +398,15 @@ a{
     background-color: #311C5E;
     color: white;
     justify-content: center;
-    flex-wrap: wrap;
+}
+
+.infoSensores{
+    display: flex;
+    margin-top: 25px;
+    display: flex;
+    width: 45%;
+    height: 45%;
+    color: white;
 }
 
 .opcoes{
@@ -419,35 +418,97 @@ a{
     height: 15px;
 }
 
+.opcoes p{
+    font-size: 20px;
+}
 
-.graficos .infos {
+
+.infos {
     display: flex;
     flex-direction: column;
     width: 49.5%;
-    height: 49.5%;
+    height: 100%;
     border: solid 1px black;
-    justify-content: center;
     align-items: center;
+}
+
+.infoSetor {
+    display: flex;
+    flex-direction: column;
+    border: solid 1px black;
+    align-items: center;
+    height: 100%;
+    width: 100%;
 }
 
 .infos h1{
     display: flex;
-    flex-wrap: wrap;
+    align-items: center;
     height: fit-content;
     width: fit-content; 
-    margin-bottom: 5px;
-    margin-top: 0;
-    font-size: 25px;
+    margin-bottom: 0;
+    margin-top: 10px;
+    margin-left: 10px;
+    font-size: 20px;
 }
 
-.infos h5{
-    margin: 5px;
-    font-size: 12px;
+.infos h4{
+    margin: 40px;
+    font-size: 50px;
 }
 
-.infos .kpis{
-    margin-top: 5px;
-    justify-content: space-evenly;
+.infoSetor h1{ 
+    margin-top: 10px;
+    margin-bottom: 0;
+    font-size: 35px;
+}
+
+.infoSetor h2{
+    font-size: 50px;
+    margin: 0;
+}
+
+.sensores{
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    width: 50%;
 }
+
+.metricas{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+}
+
+#fundoAlerta{
+    background-color: #e2d34e;
+}
+
+#fundoOk{
+    background-color: #90ee90;
+}
+
+#fundoRuim{
+    background-color: #ff6347;
+}
+/* Calculadora */
+
+#div_msg{
+    background-color: #39253c;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+    width: 80%;
+    padding: 10px;
+    margin-top: 10%;
+    display: none;
+}
+
+#msg_erro{
+    color: tomato;
+    display: none;
+    margin-top: 50px;
+}
+

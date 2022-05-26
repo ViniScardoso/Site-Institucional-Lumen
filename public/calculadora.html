@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Financeira</title>
+    <script src="js/funcoes.js"></script>
+    <link rel="stylesheet" href="css/estilo.css">
+</head>
+
+<body>
+    <div class="header">
+        <div class="icone">
+            <img class="icone" src="assets/imgs/logo_png.png" alt="">
+        </div>
+        <div class="container">
+            <h1 class="titulo">Lumen</h1>
+            <ul class="navBar">
+                <li><a href="index.html">Home</a></li>
+                <li class="destaque"><a href="calculadora.html">Simulador</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="cadastro.html">Cadastro</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Fim do cabeçalho -->
+
+    <!-- começo do banner -->
+
+    <div class="bannerCadastro">
+        <div class="containerLogin">
+            <div class="card">
+                <h1>Calculadora Financeira</h1>
+                <h4>Quantos setores o seu shopping possui?</h4><input id="ipt_setores" type="number">
+                <h4>Quantos setores tem acesso a luminosidade externa?</h4><input id="ipt_setoresLumi" type="number">
+                <h4>Qual o valor mensal da sua conta de luz?</h4><input id="ipt_conta" type="number">
+
+                <h4 id="msg_erro">Por favor, preencha todos os campos</h4>
+                <button onclick="calcular()">Calcular</button>
+
+                <div id="div_msg"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fim do banner -->
+
+
+    <!-- Início do footer -->
+
+    <div class="footer">
+        <div class="container">
+            <p>
+                &copy; Copyright Lumen SPTECH 2022
+            </p>
+        </div>
+    </div>
+
+    <!-- fim do footer -->
+</body>
+
+</html>
+<script>
+    function calcular() {
+        if (ipt_setores.value == "" || ipt_setoresLumi.value == "" || ipt_conta.value == "" ) {
+            msg_erro.style.display = "block";
+        }
+        else{
+            msg_erro.style.display = "none";
+            var qtdSetores = Number(ipt_setores.value);
+            var qtdSetoresLumi = Number(ipt_setoresLumi.value);
+            var conta = Number(ipt_conta.value);
+
+            var GastoPorSetor = conta / qtdSetores;
+
+            var economia = (GastoPorSetor * 0.2) * qtdSetoresLumi;
+
+            var contaFinal = conta - economia;
+
+            div_msg.innerHTML = `Se você contratar nosso serviço para os seus ${qtdSetoresLumi} setores com influência da luminosidade externa, e tiver uma economia de apenas 20% em cada setor, por exemplo, isso já causará um impacto de R$${economia.toFixed(2)} na sua conta de luz, e você pagará apenas R$${contaFinal.toFixed(2)}`
+
+            div_msg.style.display = "block"
+        }
+    }
+</script>

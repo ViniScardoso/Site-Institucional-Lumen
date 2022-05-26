@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <script src="js/funcoes.js"></script>
+    <link rel="stylesheet" href="css/estilo.css">
+    <script src="js/verificacoes.js"></script>
+</head>
+
+<body>
+    <div class="header">
+        <div class="icone">
+            <img class="icone" src="assets/imgs/logo_png.png" alt="">
+        </div>
+        <div class="container">
+            <h1 class="titulo">Lumen</h1>
+            <ul class="navBar">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="calculadora.html">Simulador</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li class="destaque"><a href="cadastro.html">Cadastro</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Fim do cabeçalho -->
+
+    <!-- começo do banner -->
+
+    <div class="bannerCadastro">
+        <div class="containerLogin">
+            <div class="card">
+                <h1>Cadastre-se</h1>
+
+                <h4>Nome</h4>
+                <input type="text" placeholder="Nome Completo" id="ipt_nome">
+                <h4>Email</h4>
+                <input type="email" placeholder="seuemail@exemplo.com" id="ipt_email">
+                <h4>Senha</h4>
+                <input type="password" placeholder="********" id="ipt_senha">
+                <h4>CPF</h4>
+                <input type="text" placeholder="Seu CPF" id="ipt_cpf">
+                <h4>Telefone</h4>
+                <input type="text" placeholder="11912345678" id="ipt_fone">
+
+                <h3>Informações da empresa</h3>
+
+                <h4>Nome</h4>
+                <input type="text" placeholder="Nome da empresa" id="ipt_nomeEmp">
+                <h4>CNPJ</h4>
+                <input type="number" placeholder="Insira o CNPJ" id="ipt_cnpj">
+                <h4>Endereço</h4>
+                <input type="text" placeholder="Insira o endereço da sua empresa" id="ipt_endereco">
+
+                
+                    <button onclick="cadastrar()">Cadastrar</button>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Fim do banner -->
+
+    <!-- Início do footer -->
+
+    <div class="footer">
+        <div class="container">
+            <p>
+                &copy; Copyright Lumen SPTECH 2022
+            </p>
+        </div>
+    </div>
+
+    <!-- fim do footer -->
+</body>
+
+</html>
+
+<script>
+
+    function cadastrar() {
+        // aguardar();
+
+        var nomeVar = ipt_nome.value;
+        var logonVar = ipt_email.value;
+        var senhaVar = ipt_senha.value;
+        var cpfVar = ipt_cpf.value;
+        var foneVar = ipt_fone.value;
+        var nomeEmpVar = ipt_nomeEmp.value;
+        var cnpjVar = ipt_cnpj.value;
+        var enderecoVar = ipt_endereco.value;
+
+        if (logonVar == "" || senhaVar == "" || cpfVar == "" || foneVar  == "" || nomeVar == "" || nomeEmpVar == "" || cnpjVar == "" || enderecoVar == "") {
+            alert("Por favor não deixe nenhum campo vazio")
+
+            // finalizarAguardar();
+            return false;
+        }
+        
+        fetch("/usuarios/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+
+                nomeServer: nomeVar,
+                logonServer: logonVar,
+                senhaServer: senhaVar,
+                cpfServer: cpfVar,
+                foneServer: foneVar,
+                nomeEmpServer: nomeEmpVar,
+                cnpjServer: cnpjVar,
+                enderecoServer: enderecoVar
+
+            })
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                // cardErro.style.display = "block";
+
+                alert ("Cadastro realizado com sucesso! Redirecionando para tela de Login...");
+
+                setTimeout(() => {
+                    window.location = "login.html";
+                }, "2000")
+                
+                // limparFormulario();
+                // finalizarAguardar();
+            } else {
+                throw ("Houve um erro ao tentar realizar o cadastro!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            // finalizarAguardar();
+        });
+
+        return false;
+    }
+
+    // function sumirMensagem() {
+    //     cardErro.style.display = "none"
+    // }
+
+</script>

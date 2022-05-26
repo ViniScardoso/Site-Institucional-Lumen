@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <script src="js/funcoes.js"></script>
+    <link rel="stylesheet" href="css/estilo.css">
+    <script src="js/verificacoes.js"></script>
+</head>
+
+<body>
+    <div class="header">
+        <div class="icone">
+            <img class="icone" src="assets/imgs/logo_png.png" alt="">
+        </div>
+        <div class="container">
+            <h1 class="titulo">Lumen</h1>
+            <ul class="navBar">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="calculadora.html">Simulador</a></li>
+                <li class="destaque"><a href="login.html">Login</a></li>
+                <li><a href="cadastro.html">Cadastro</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Fim do cabeçalho -->
+
+    <!-- começo do banner -->
+
+    <div class="banner">
+        <div class="containerLogin">
+            <div class="card">
+                <h1>Login</h1>
+                <h4>Email</h4>
+                <input type="email" placeholder="seuemail@exemplo.com" id="ipt_email">
+                <h4>Senha</h4>
+                <input type="password" placeholder="********" id="ipt_senha">
+
+                <button onclick="entrar()">Entrar</button>
+
+                <h4 id="mensagem_erro"></h4>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fim do banner -->
+
+
+    <!-- Início do footer -->
+
+    <div class="footerFixo">
+        <div class="container">
+            <p>
+                &copy; Copyright Lumen SPTECH 2022
+            </p>
+        </div>
+    </div>
+
+    <!-- fim do footer -->
+</body>
+
+</html>
+<script>
+
+function entrar() {
+        // aguardar();
+
+        var emailVar = ipt_email.value;
+        var senhaVar = ipt_senha.value;
+
+        if (emailVar == "" || senhaVar == "") {
+            mensagem_erro.style.color = "tomato";
+            mensagem_erro.innerHTML = "Por favor, preencha todos os campos";
+            // finalizarAguardar();
+            return false;
+        }
+        else {
+            setInterval(sumirMensagem, 5000)
+        }
+
+        console.log("FORM LOGIN: ", emailVar);
+        console.log("FORM SENHA: ", senhaVar);
+
+        fetch("/usuarios/autenticar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                emailServer: emailVar,
+                senhaServer: senhaVar
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+                mensagem_erro.innerHTML = "Login realizado com sucesso";
+                
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+
+                    sessionStorage.EMAIL_USUARIO = json.logon;
+                    sessionStorage.NOME_USUARIO = json.nome;
+                    sessionStorage.ID_USUARIO = json.idUsuario;
+
+                    setTimeout(function () {
+                        window.location = "./dashboard/dashboardGeral.html";
+                    }, 1000); // apenas para exibir o loading
+
+                });
+
+            } else {
+
+                console.log("Houve um erro ao tentar realizar o login!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                    finalizarAguardar(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+    }
+
+    function sumirMensagem() {
+        mensagem_erro.innerHTML = ""
+    }
+
+</script>
