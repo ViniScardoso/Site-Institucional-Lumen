@@ -12,11 +12,10 @@ function buscarUltimasMedidas(idSensor, limite_linhas) {
                         CONVERT(varchar, dataHoraRgt, 108) as momento_grafico
                     from medida
                     where fkSensor = ${idSensor}
-                    order by id desc`;
+                    order by idRegistro desc`;
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `select 
-                        medida, 
-                        dataHoraRgt,
+                        medida as luminosidade, 
                         DATE_FORMAT(dataHoraRgt,'%H:%i:%s') as momento_grafico
                     from registro
                     where fkSensor = ${idSensor}
@@ -37,18 +36,18 @@ function buscarMedidasEmTempoReal(idSensor) {
     if (process.env.AMBIENTE_PROCESSO == "producao") {       
         instrucaoSql = `select top 1
                         temperatura, 
-                        umidade, CONVERT(varchar, momento, 108) as momento_grafico, 
+                        dataHoraRgt(varchar, momento, 108) as momento_grafico, 
                         fkSensor 
-                        from medida where fkSensor = ${idSensor} 
-                    order by id desc`;
+                        from registro where fkSensor = ${idSensor} 
+                    order by idRegistro desc`;
         
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `select 
-                        temperatura, 
-                        umidade, DATE_FORMAT(momento,'%H:%i:%s') as momento_grafico, 
+                        medida as luminosidade, 
+                        DATE_FORMAT(dataHoraRgt,'%H:%i:%s') as momento_grafico, 
                         fkSensor 
-                        from medida where fkSensor = ${idSensor} 
-                    order by id desc limit 1`;
+                        from registro where fkSensor = ${idSensor} 
+                    order by idRegistro desc limit 1`;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
         return

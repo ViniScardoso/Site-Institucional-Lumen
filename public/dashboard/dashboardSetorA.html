@@ -8,8 +8,8 @@
     <title>Setor A</title>
     <script src="../js/funcoes.js"></script>
     <link rel="stylesheet" href="../css/estilo.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- <script type="text/javascript" src="https://www.chartjs.org/dist/2.8.0/Chart.min.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+    <script type="text/javascript" src="https://www.chartjs.org/dist/2.8.0/Chart.min.js"></script>
 </head>
 
 <body onload="validarSessao()">
@@ -82,6 +82,8 @@
 
 <script>
 
+    var config;
+
     let proximaAtualizacao;
 
     obterDadosGrafico(1);
@@ -131,6 +133,7 @@
     // A função *plotarGrafico* também invoca a função *atualizarGrafico*
     function plotarGrafico(resposta, idSensor) {
         console.log('iniciando plotagem do gráfico...');
+        console.log(idSensor);
 
         var dados = {
             labels: [],
@@ -156,7 +159,8 @@
         console.log(JSON.stringify(dados));
 
         var ctx = myChart.getContext('2d');
-        window.grafico_linha = Chart.Line(ctx, {
+        window.grafico_linha1 = Chart.Line(ctx, {
+            type: 'line',
             data: dados,
             options: {
                 responsive: true,
@@ -172,10 +176,10 @@
                         type: 'linear',
                         display: true,
                         position: 'left',
-                        id: 'y-temperatura',
+                        id: 'y-luminosidade',
                         ticks: {
                             beginAtZero: true,
-                            max: 100,
+                            max: 1200,
                             min: 0
                         }
                     }, {
@@ -186,7 +190,7 @@
                         ticks: {
                             beginAtZero: true,
                             max: 100,
-                            min: 0
+                            min: 0,
                         },
 
                         gridLines: {
@@ -220,12 +224,12 @@
                     dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
                     
                     dados.datasets[0].data.shift();  // apagar o primeiro de umidade
-                    dados.datasets[0].data.push(novoRegistro[0].umidade); // incluir uma nova medida de umidade
+                    dados.datasets[0].data.push(novoRegistro[0].luminosidade); // incluir uma nova medida de umidade
                     
-                    dados.datasets[1].data.shift();  // apagar o primeiro de temperatura
-                    dados.datasets[1].data.push(novoRegistro[0].temperatura); // incluir uma nova medida de temperatura
+                    // dados.datasets[1].data.shift();  // apagar o primeiro de temperatura
+                    // dados.datasets[1].data.push(novoRegistro[0].temperatura); // incluir uma nova medida de temperatura
 
-                    window.grafico_linha.update();
+                    window.grafico_linha1.update();
 
                     // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
                     proximaAtualizacao = setTimeout(() => atualizarGrafico(idSensor, dados), 2000);
