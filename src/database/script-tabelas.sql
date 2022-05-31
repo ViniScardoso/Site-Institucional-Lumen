@@ -48,4 +48,19 @@ desc shopping;
 select * from usuario;
 select * from shopping;
 
+-- insert de daods fictícios de medidas para teste
+
+insert into setor values(null, 'A', 234534); -- a fk do shopping depende do que será inserido no cadastro
+
+insert into sensor values(null, 'ldr', 1);
+
+insert into registro values (null, '723', now(), 1),
+							(null, '654', now(), 1),
+							(null, '735', now(), 1),
+							(null, '832', now(), 1),
+							(null, '673', now(), 1),
+							(null, '512', now(), 1),
+							(null, '752', now(), 1),
+							(null, '890', now(), 1),
+							(null, '932', now(), 1);
 

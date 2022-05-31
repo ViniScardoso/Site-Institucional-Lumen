@@ -9,6 +9,7 @@
     <script src="../js/funcoes.js"></script>
     <link rel="stylesheet" href="../css/estilo.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- <script type="text/javascript" src="https://www.chartjs.org/dist/2.8.0/Chart.min.js"></script> -->
 </head>
 
 <body onload="validarSessao()">
@@ -77,46 +78,209 @@
     </div>
 
 </body>
-
 </html>
+
+<script>
+
+    let proximaAtualizacao;
+
+    obterDadosGrafico(1);
+
+    // function alterarTitulo(idSensor) {
+    //     var tituloAquario = document.getElementById("tituloAquario")
+    //     tituloAquario.innerHTML = "Últimas medidas de Temperatura e Umidade do <span style='color: #e6005a'>Aquário " + idSensor + "</span>"
+    // }
+
+    // O gráfico é construído com três funções:
+    // 1. obterDadosGrafico -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
+    // 2. plotarGrafico -> Monta o gráfico com os dados trazidos e exibe em tela
+    // 3. atualizarGrafico -> Atualiza o gráfico, trazendo novamente dados do Banco
+
+    // Esta função *obterDadosGrafico* busca os últimos dados inseridos em tabela de medidas.
+    // para, quando carregar o gráfico da primeira vez, já trazer com vários dados.
+    // A função *obterDadosGrafico* também invoca a função *plotarGrafico*
+
+    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
+    //     Para ajustar o "select", ajuste o comando sql em src/models
+    function obterDadosGrafico(idSensor) {
+        // alterarTitulo(idSensor)
+
+        if (proximaAtualizacao != undefined) {
+            clearTimeout(proximaAtualizacao);
+        }
+
+        fetch(`/medidas/ultimas/${idSensor}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    plotarGrafico(resposta, idSensor);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
+    // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
+    // A função *plotarGrafico* também invoca a função *atualizarGrafico*
+    function plotarGrafico(resposta, idSensor) {
+        console.log('iniciando plotagem do gráfico...');
+
+        var dados = {
+            labels: [],
+            datasets: [
+                {
+                    yAxisID: 'y-luminosidade',
+                    label: 'luminosidade',
+                    borderColor: '#32B9CD',
+                    backgroundColor: '#32b9cd8f',
+                    fill: true,
+                    data: []
+                },
+            ]
+        };
+
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+            dados.labels.push(registro.momento_grafico);
+            dados.datasets[0].data.push(registro.luminosidade);
+            // dados.datasets[1].data.push(registro.temperatura);
+        }
+
+        console.log(JSON.stringify(dados));
+
+        var ctx = myChart.getContext('2d');
+        window.grafico_linha = Chart.Line(ctx, {
+            data: dados,
+            options: {
+                responsive: true,
+                animation: { duration: 500 },
+                hoverMode: 'index',
+                stacked: false,
+                title: {
+                    display: false,
+                    text: 'Dados capturados'
+                },
+                scales: {
+                    yAxes: [{
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        id: 'y-temperatura',
+                        ticks: {
+                            beginAtZero: true,
+                            max: 100,
+                            min: 0
+                        }
+                    }, {
+                        type: 'linear',
+                        display: false,
+                        position: 'right',
+                        id: 'y-umidade',
+                        ticks: {
+                            beginAtZero: true,
+                            max: 100,
+                            min: 0
+                        },
+
+                        gridLines: {
+                            drawOnChartArea: false,
+                        },
+                    }],
+                }
+            }
+        });
+
+        setTimeout(() => atualizarGrafico(idSensor, dados), 2000);
+    }
+
+
+    // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
+    // buscando a última medida inserida em tabela contendo as capturas, 
+
+    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
+    //     Para ajustar o "select", ajuste o comando sql em src/models
+    function atualizarGrafico(idSensor, dados) {
+
+        fetch(`/medidas/tempo-real/${idSensor}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (novoRegistro) {
+
+                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+                    console.log(`Dados atuais do gráfico: ${dados}`);
+
+                    // tirando e colocando valores no gráfico
+                    dados.labels.shift(); // apagar o primeiro
+                    dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
+                    
+                    dados.datasets[0].data.shift();  // apagar o primeiro de umidade
+                    dados.datasets[0].data.push(novoRegistro[0].umidade); // incluir uma nova medida de umidade
+                    
+                    dados.datasets[1].data.shift();  // apagar o primeiro de temperatura
+                    dados.datasets[1].data.push(novoRegistro[0].temperatura); // incluir uma nova medida de temperatura
+
+                    window.grafico_linha.update();
+
+                    // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                    proximaAtualizacao = setTimeout(() => atualizarGrafico(idSensor, dados), 2000);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                proximaAtualizacao = setTimeout(() => atualizarGrafico(idSensor, dados), 2000);
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+    }
+</script>
+
 <script>
 
     // grafico 1, meidição da luminosidade nas horas em que o shopping fica aberto
 
-    const labels = [
-        '10:00',
-        '11:00',
-        '12:00',
-        '13:00',
-        '14:00',
-        '15:00',
-        '16:00',
-        '18:00',
-        '19:00',
-        '20:00',
-        '21:00',
-        '22:00',
-    ];
+    // const labels = [
+    //     '10:00',
+    //     '11:00',
+    //     '12:00',
+    //     '13:00',
+    //     '14:00',
+    //     '15:00',
+    //     '16:00',
+    //     '18:00',
+    //     '19:00',
+    //     '20:00',
+    //     '21:00',
+    //     '22:00',
+    // ];
 
-    // grafico 2, Media semanal do setor
-    const meses = [
-        'Segunda',
-        'Terça ',
-        'Quarta',
-        'Quinta',
-        'Sexta',
-        'Sábado',
-        'Domingo',
-    ];
+    // // grafico 2, Media semanal do setor
+    // const meses = [
+    //     'Segunda',
+    //     'Terça ',
+    //     'Quarta',
+    //     'Quinta',
+    //     'Sexta',
+    //     'Sábado',
+    //     'Domingo',
+    // ];
 
-    //grafico 3, media mensal do setor
+    // //grafico 3, media mensal do setor
 
-    const semanas = [
-        'Semana 1',
-        'Semana 2',
-        'Semana 3',
-        'Semana 4',
-    ];
+    // const semanas = [
+    //     'Semana 1',
+    //     'Semana 2',
+    //     'Semana 3',
+    //     'Semana 4',
+    // ];
 
     // grafico 4, semi donut, ilustração das métricas
     const metricas = [
@@ -125,55 +289,55 @@
         'Ideal',
     ]
 
-    // grafico 1, meidição da luminosidade nas horas em que o shopping fica aberto
-    const data = {
-        labels: labels,
-        datasets: [{
-            //linha 1 sensor 1
-            label: 'Sensor 1',
-            backgroundColor: '#FFFFFF',
-            borderColor: '#FFFFFF',
-            data: [755, 833, 921, 678, 464, 834, 756, 653, 816, 532, 728, 687],
-        },
+    // // grafico 1, meidição da luminosidade nas horas em que o shopping fica aberto
+    // const data = {
+    //     labels: labels,
+    //     datasets: [{
+    //         //linha 1 sensor 1
+    //         label: 'Sensor 1',
+    //         backgroundColor: '#FFFFFF',
+    //         borderColor: '#FFFFFF',
+    //         data: [755, 833, 921, 678, 464, 834, 756, 653, 816, 532, 728, 687],
+    //     },
 
 
-        {
-            //linha 2 sensor 2 
-            label: 'Sensor 2',
-            backgroundColor: '#FCD900',
-            borderColor: '#FCD900',
-            data: [835, 724, 645, 933, 567, 837, 543, 678, 981, 684, 981, 724],
-        }
-        ]
-    };
+    //     {
+    //         //linha 2 sensor 2 
+    //         label: 'Sensor 2',
+    //         backgroundColor: '#FCD900',
+    //         borderColor: '#FCD900',
+    //         data: [835, 724, 645, 933, 567, 837, 543, 678, 981, 684, 981, 724],
+    //     }
+    //     ]
+    // };
 
-    // grafico 2, Media semestral do setor
+    // // grafico 2, Media semestral do setor
 
-    const data2 = {
-        labels: meses,
-        datasets: [{
-            // barras media semestral setor 1
-            label: 'Setor A',
-            backgroundColor: '#FFFFFF',
-            borderColor: '#FFFFFF',
-            data: [782, 821, 792, 852, 861, 713, 695],
-        }
-        ]
-    };
+    // const data2 = {
+    //     labels: meses,
+    //     datasets: [{
+    //         // barras media semestral setor 1
+    //         label: 'Setor A',
+    //         backgroundColor: '#FFFFFF',
+    //         borderColor: '#FFFFFF',
+    //         data: [782, 821, 792, 852, 861, 713, 695],
+    //     }
+    //     ]
+    // };
 
-    // grafico 3 media mensal do setor
+    // // grafico 3 media mensal do setor
 
-    const data3 = {
-        labels: semanas,
-        datasets: [{
-            //barras media semanal
-            label: 'Setor A',
-            backgroundColor: '#FCD900',
-            borderColor: '#FCD900',
-            data: [854, 763, 812, 697],
-        }
-        ]
-    };
+    // const data3 = {
+    //     labels: semanas,
+    //     datasets: [{
+    //         //barras media semanal
+    //         label: 'Setor A',
+    //         backgroundColor: '#FCD900',
+    //         borderColor: '#FCD900',
+    //         data: [854, 763, 812, 697],
+    //     }
+    //     ]
+    // };
 
     // grafico 4 metricas para os alertas
 
@@ -190,119 +354,119 @@
         ]
     }
 
-    // config grafico 1
-    const config = {
-        type: 'line',
-        data: data,
-        options: {
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Monitoramento diário dos sensores',
-                    color: 'white'
-                },
-                legend: {
-                    labels: {
-                        color: 'white'
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    grid: {
-                        color: 'white'
-                    },
-                    ticks: {
-                        color: 'white'
-                    }
-                },
-                y: {
-                    grid: {
-                        color: 'white'
-                    },
-                    ticks: {
-                        color: 'white'
-                    }
-                }
-            }
-        }
-    };
+    // // config grafico 1
+    // const config = {
+    //     type: 'line',
+    //     data: data,
+    //     options: {
+    //         plugins: {
+    //             title: {
+    //                 display: true,
+    //                 text: 'Monitoramento diário dos sensores',
+    //                 color: 'white'
+    //             },
+    //             legend: {
+    //                 labels: {
+    //                     color: 'white'
+    //                 }
+    //             }
+    //         },
+    //         scales: {
+    //             x: {
+    //                 grid: {
+    //                     color: 'white'
+    //                 },
+    //                 ticks: {
+    //                     color: 'white'
+    //                 }
+    //             },
+    //             y: {
+    //                 grid: {
+    //                     color: 'white'
+    //                 },
+    //                 ticks: {
+    //                     color: 'white'
+    //                 }
+    //             }
+    //         }
+    //     }
+    // };
 
-    // config grafico 2
-    const config2 = {
-        type: 'bar',
-        data: data2,
-        options: {
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Média semanal do Setor',
-                    color: 'white'
-                },
-                legend: {
-                    labels: {
-                        color: 'white'
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    grid: {
-                        color: 'white'
-                    },
-                    ticks: {
-                        color: 'white'
-                    }
-                },
-                y: {
-                    grid: {
-                        color: 'white'
-                    },
-                    ticks: {
-                        color: 'white'
-                    }
-                }
-            }
-        }
-    };
+    // // config grafico 2
+    // const config2 = {
+    //     type: 'bar',
+    //     data: data2,
+    //     options: {
+    //         plugins: {
+    //             title: {
+    //                 display: true,
+    //                 text: 'Média semanal do Setor',
+    //                 color: 'white'
+    //             },
+    //             legend: {
+    //                 labels: {
+    //                     color: 'white'
+    //                 }
+    //             }
+    //         },
+    //         scales: {
+    //             x: {
+    //                 grid: {
+    //                     color: 'white'
+    //                 },
+    //                 ticks: {
+    //                     color: 'white'
+    //                 }
+    //             },
+    //             y: {
+    //                 grid: {
+    //                     color: 'white'
+    //                 },
+    //                 ticks: {
+    //                     color: 'white'
+    //                 }
+    //             }
+    //         }
+    //     }
+    // };
 
-    // config grafico 3
-    const config3 = {
-        type: 'bar',
-        data: data3,
-        options: {
-            plugins: {
-                title: {
-                    display: true,
-                    text: `Média Mensal do Setor`,
-                    color: 'white'
-                },
-                legend: {
-                    labels: {
-                        color: 'white'
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    grid: {
-                        color: 'white'
-                    },
-                    ticks: {
-                        color: 'white'
-                    }
-                },
-                y: {
-                    grid: {
-                        color: 'white'
-                    },
-                    ticks: {
-                        color: 'white'
-                    }
-                }
-            }
-        }
-    };
+    // // config grafico 3
+    // const config3 = {
+    //     type: 'bar',
+    //     data: data3,
+    //     options: {
+    //         plugins: {
+    //             title: {
+    //                 display: true,
+    //                 text: `Média Mensal do Setor`,
+    //                 color: 'white'
+    //             },
+    //             legend: {
+    //                 labels: {
+    //                     color: 'white'
+    //                 }
+    //             }
+    //         },
+    //         scales: {
+    //             x: {
+    //                 grid: {
+    //                     color: 'white'
+    //                 },
+    //                 ticks: {
+    //                     color: 'white'
+    //                 }
+    //             },
+    //             y: {
+    //                 grid: {
+    //                     color: 'white'
+    //                 },
+    //                 ticks: {
+    //                     color: 'white'
+    //                 }
+    //             }
+    //         }
+    //     }
+    // };
 
     // config gráfico 4
     const config4 = {
@@ -327,20 +491,20 @@
 </script>
 
 <script>
-    const myChart = new Chart(
-        document.getElementById('myChart'),
-        config
-    );
+    // const myChart = new Chart(
+    //     document.getElementById('myChart'),
+    //     config
+    // );
 
-    const myChart2 = new Chart(
-        document.getElementById('myChart2'),
-        config2
-    );
+    // const myChart2 = new Chart(
+    //     document.getElementById('myChart2'),
+    //     config2
+    // );
 
-    const myChart3 = new Chart(
-        document.getElementById('myChart3'),
-        config3
-    );
+    // const myChart3 = new Chart(
+    //     document.getElementById('myChart3'),
+    //     config3
+    // );
 
     const myChart4 = new Chart(
         document.getElementById('myChart4'),
