@@ -57,6 +57,8 @@ select * from shopping;
 
 -- insert de daods fictícios de medidas para teste
 
+insert into TipoGrafico values (null, 'Tempo Real');
+
 insert into setor values(null, 'A', 1234567); -- a fk do shopping depende do que será inserido no cadastro
 
 insert into sensor values(null, 'ldr', 1);

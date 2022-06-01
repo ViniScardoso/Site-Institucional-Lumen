@@ -6,12 +6,10 @@ function buscarUltimasMedidas(idSensor, limite_linhas) {
     
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         instrucaoSql = `select top ${limite_linhas}
-                        temperatura, 
-                        umidade, 
-                        dataHoraRgt,
+                        medida as luminosidade, 
                         CONVERT(varchar, dataHoraRgt, 108) as momento_grafico
-                    from medida
-                    where fkSensor = ${idSensor}
+                    from registro
+                    where fkSensor = ${idSensor} and fkTipo = 1
                     order by idRegistro desc`;
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `select 
@@ -35,10 +33,10 @@ function buscarMedidasEmTempoReal(idSensor) {
     
     if (process.env.AMBIENTE_PROCESSO == "producao") {       
         instrucaoSql = `select top 1
-                        temperatura, 
-                        dataHoraRgt(varchar, momento, 108) as momento_grafico, 
+                        medida as luminosidade, 
+                        CONVERT(varchar, dataHoraRgt, 108) as momento_grafico, 
                         fkSensor 
-                        from registro where fkSensor = ${idSensor} 
+                        from registro where fkSensor = ${idSensor} and fkTipo = 1
                     order by idRegistro desc`;
         
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {

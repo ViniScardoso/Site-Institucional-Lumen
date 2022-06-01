@@ -1,0 +1,60 @@
+create table Shopping(
+	nome varchar(45),
+	endereco varchar(45),
+	cnpj char(14) primary key
+);
+
+create table Usuario(
+	idUsuario int primary key identity(1,1),
+    nome varchar(45),
+	logon varchar(45),
+	senha varchar(45),
+	cpf char(11),
+	telefone char(11),
+	tipo char(1),
+	fkGestor int,
+	foreign key (fkGestor) references Usuario(idUsuario),
+	fkShopping char(14),
+	foreign key (fkShopping) references Shopping(cnpj)
+);
+
+create table Setor(
+	idSetor int primary key identity(1,1),
+	nome varchar(45),
+	fkShopping char(14),
+	foreign key (fkShopping) references Shopping(cnpj)
+);
+
+create table Sensor(
+	idSensor int primary key identity(1,1),
+	modelo varchar(45),
+	fkSetor int,
+	foreign key (fkSetor) references Setor(idSetor)
+);
+
+create table tipoGrafico(
+	idTipo int primary key identity(1,1),
+    nomeTipo varchar(45)
+);
+
+create table Registro(
+	idRegistro int primary key identity(1,1),
+	medida int,
+	dataHoraRgt datetime,
+	fkSensor int,
+	foreign key (fkSensor) references Sensor(idSensor),
+    fkTipo int,
+    foreign key (fkTipo) references TipoGrafico (idTipo)
+);
+
+select * from [dbo].[Usuario];
+
+select * from Shopping;
+
+select * from [dbo].[Registro];
+
+insert into setor values('A',  13748399 ); 
+
+insert into sensor values('ldr', 1);
+
+insert into [dbo].[tipoGrafico] values('Tempo Real');
