@@ -35,12 +35,19 @@ create table Sensor(
 	foreign key (fkSetor) references Setor(idSetor)
 );
 
+create table tipoGrafico(
+	idTipo int primary key auto_increment,
+    nomeTipo varchar(45)
+);
+
 create table Registro(
 	idRegistro int primary key auto_increment,
 	medida int,
 	dataHoraRgt datetime,
 	fkSensor int,
-	foreign key (fkSensor) references Sensor(idSensor)
+	foreign key (fkSensor) references Sensor(idSensor),
+    fkTipo int,
+    foreign key (fkTipo) references TipoGrafico (idTipo)
 );
 
 desc usuario;
@@ -50,7 +57,7 @@ select * from shopping;
 
 -- insert de daods fictícios de medidas para teste
 
-insert into setor values(null, 'A', 234534); -- a fk do shopping depende do que será inserido no cadastro
+insert into setor values(null, 'A', 1234567); -- a fk do shopping depende do que será inserido no cadastro
 
 insert into sensor values(null, 'ldr', 1);
 
@@ -63,4 +70,8 @@ insert into registro values (null, '723', now(), 1),
 							(null, '752', now(), 1),
 							(null, '890', now(), 1),
 							(null, '932', now(), 1);
+                            
+insert into registro values(null, '520', now(), 1);
+
+insert into registro values(null, '950', now(), 1);
 

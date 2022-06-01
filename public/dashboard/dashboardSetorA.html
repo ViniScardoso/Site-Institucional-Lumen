@@ -270,7 +270,7 @@
                         console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
 
                         var dados = {
-                            temperatura: resposta[0].luminosidade,
+                            luminosidade: resposta[0].luminosidade,
                         }
 
                         alertar(resposta[0].luminosidade, idSensor);
@@ -291,7 +291,6 @@
             alta: 900,
             ideal: 700,
             razoavel: 600,
-            baixo: 400,
         };
 
 
@@ -303,16 +302,14 @@
             document.querySelector(".infoSetor").style.backgroundColor = '#90ee90';
             console.log("caiu no 2")
         }
-        else if (luminosidade < limites.ideal && luminosidade > limites.baixo) {
+        else if (luminosidade < limites.ideal && luminosidade > limites.razoavel) {
             document.querySelector(".infoSetor").style.backgroundColor = '#e2d34e';
             console.log("caiu no 3")
         }
-        else if (luminosidade <= limites.baixo) {
+        else if (luminosidade <= limites.razoavel) {
             document.querySelector(".infoSetor").style.backgroundColor = '#ff6347';
             console.log("caiu no 4")
         }
-
-        var card;
 
         if (idSensor == 1) {
             medidaSetorA.innerHTML = luminosidade;
