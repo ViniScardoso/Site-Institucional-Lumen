@@ -437,8 +437,10 @@ a{
     flex-direction: column;
     border: solid 1px black;
     align-items: center;
+    justify-content: center;
     height: 100%;
     width: 100%;
+    background-color: #e2d34e;
 }
 
 .infos h1{
@@ -460,11 +462,11 @@ a{
 .infoSetor h1{ 
     margin-top: 10px;
     margin-bottom: 0;
-    font-size: 35px;
+    font-size: 50px;
 }
 
 .infoSetor h2{
-    font-size: 50px;
+    font-size: 70px;
     margin: 0;
 }
 
