@@ -82,7 +82,8 @@
 
     let proximaAtualizacao;
 
-    obterDadosGrafico(1);
+    // obterDadosGrafico(1);
+    obterDadosGraficoMediaSemanal(1);
 
     // function alterarTitulo(idSensor) {
     //     var tituloAquario = document.getElementById("tituloAquario")
@@ -124,6 +125,32 @@
             });
     }
 
+    function obterDadosGraficoMediaSemanal(idSensor) {
+        // alterarTitulo(idSensor)
+
+        if (proximaAtualizacao != undefined) {
+            clearTimeout(proximaAtualizacao);
+        }
+
+        fetch(`/medidas/mediaSemanal/${idSensor}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    plotarGraficoMediaSemanal(resposta, idSensor);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+   
+
     // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
     // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
     // A função *plotarGrafico* também invoca a função *atualizarGrafico*
@@ -149,7 +176,6 @@
             var registro = resposta[i];
             dados.labels.push(registro.momento_grafico);
             dados.datasets[0].data.push(registro.luminosidade);
-            // dados.datasets[1].data.push(registro.temperatura);
         }
 
         console.log(JSON.stringify(dados));
@@ -197,7 +223,74 @@
         setTimeout(() => atualizarGrafico(idSensor, dados), 2000);
     }
 
-    
+    function plotarGraficoMediaSemanal(resposta, idSensor) {
+        console.log('iniciando plotagem do gráfico...');
+        console.log(idSensor);
+
+        var dados = {
+            labels: ['segunda','terça','quarta','quinta','sexta','sábado','domingo'],
+            datasets: [
+                {
+                    yAxisID: 'y-luminosidade',
+                    label: 'luminosidade',
+                    borderColor: '#ffff80',
+                    backgroundColor: '#ffff80',
+                    fill: true,
+                    data: [],
+                },
+            ]
+        };
+
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+            // dados.labels.push(registro.momento_grafico);
+            dados.datasets[0].data.push(registro.luminosidade);
+            // dados.datasets[1].data.push(registro.temperatura);
+        }
+
+        console.log(JSON.stringify(dados));
+
+        var ctx = myChart2.getContext('2d');
+        window.grafico_mediaSemanal = new Chart(ctx, {
+            type: 'bar',
+            data: dados,
+            options: {
+                responsive: true,
+                animation: { duration: 500 },
+                hoverMode: 'index',
+                stacked: false,
+                legend: {
+                    labels: {
+                        fontColor: 'white'
+                    }
+                },
+                title: {
+                    display: false,
+                    text: 'Dados capturados',
+                },
+                scales: {
+                    yAxes: [{
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        id: 'y-luminosidade',
+                        ticks: {
+                            beginAtZero: true,
+                            max: 1200,
+                            min: 0,
+                            fontColor: 'white',
+                        }
+                    },],
+                    xAxes: [{
+                        ticks: {
+                            fontColor: 'white',
+                        }
+                    }]
+                }
+            }
+        });
+    }
+
 
 
     // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
