@@ -1,5 +1,7 @@
 var medidaModel = require("../models/medidaModel");
 
+var alteracaoB = 0.8;
+
 function buscarUltimasMedidas(req, res) {
 
     const limite_linhas = 7;
@@ -21,15 +23,16 @@ function buscarUltimasMedidas(req, res) {
     });
 }
 
-function buscarMediaSemanal(req, res) {
+function buscarUltimasMedidasB(req, res) {
 
     const limite_linhas = 7;
+    
 
     var idSensor = req.params.idSensor;
 
     console.log(`Recuperando as ultimas ${limite_linhas} medidas`);
 
-    medidaModel.buscarMediaSemanal(idSensor, limite_linhas).then(function (resultado) {
+    medidaModel.buscarUltimasMedidasB(idSensor, limite_linhas, alteracaoB).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -41,6 +44,26 @@ function buscarMediaSemanal(req, res) {
         res.status(500).json(erro.sqlMessage);
     });
 }
+
+function buscarMedidasEmTempoRealB(req, res) {
+
+    var idSensor = req.params.idSensor;
+
+    console.log(`Recuperando medidas em tempo real`);
+
+    medidaModel.buscarMedidasEmTempoRealB(idSensor, alteracaoB).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
 
 function buscarMedidasEmTempoReal(req, res) {
 
@@ -64,5 +87,6 @@ function buscarMedidasEmTempoReal(req, res) {
 module.exports = {
     buscarUltimasMedidas,
     buscarMedidasEmTempoReal,
-    buscarMediaSemanal
+    buscarUltimasMedidasB,
+    buscarMedidasEmTempoRealB
 }
